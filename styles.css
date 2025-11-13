@@ -1,10 +1,7 @@
-/* write css here */
-*,
-*::before,
-*::after {
+* {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 html {
@@ -12,21 +9,352 @@ html {
 }
 
 body {
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-
   display: flex;
+  align-items: center;
   justify-content: center;
-  background-color: #fefefc;
-
-  font-size: 1.6rem;
-  font-weight: 400;
-  line-height: 1.6;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #b1b8d9 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 2rem;
   color: #333;
 }
 
 .container {
-  margin: 4rem 0;
-  flex: 0 1 110rem;
-  min-height: 110vh;
+  max-width: 120rem;
+  width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 2rem;
+  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.header p {
+  opacity: 0.9;
+  font-size: 1.4rem;
+}
+
+.content {
+  padding: 3rem;
+}
+
+.form-section {
+  background: #f8f9fa;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: #555;
+  font-size: 1.6rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 1.2rem 1.5rem;
+  border: 0.2rem solid #e0e0e0;
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.3rem rgba(102, 126, 234, 0.1);
+}
+
+.btn-add {
+  width: 100%;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 2rem rgba(102, 126, 234, 0.4);
+}
+
+.btn-add:active {
+  transform: translateY(0);
+}
+
+.summary {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.summary-item {
+  text-align: center;
+  flex: 1;
+  min-width: 15rem;
+}
+
+.summary-label {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.summary-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.expenses-container {
+  border-radius: 1.5rem;
+  min-height: 20rem;
+}
+
+.table-section {
+  overflow-x: auto;
+  border-radius: 1.5rem;
+  box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 60rem;
+}
+
+thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+
+thead th {
+  padding: 1.5rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+
+tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+tbody td {
+  padding: 1.5rem;
+  font-size: 1.4rem;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.category-food {
+  background: #ffe0b2;
+  color: #e65100;
+}
+.category-transport {
+  background: #b3e5fc;
+  color: #01579b;
+}
+.category-entertainment {
+  background: #f8bbd0;
+  color: #880e4f;
+}
+.category-utilities {
+  background: #c5e1a5;
+  color: #33691e;
+}
+.category-healthcare {
+  background: #ffccbc;
+  color: #bf360c;
+}
+.category-shopping {
+  background: #e1bee7;
+  color: #4a148c;
+}
+.category-other {
+  background: #cfd8dc;
+  color: #263238;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 5rem 2rem;
+  color: #999;
+  background: #f8f9fa;
+  border-radius: 1.5rem;
+}
+
+.empty-state svg {
+  width: 6rem;
+  height: 6rem;
+  opacity: 0.4;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  color: #999;
+}
+
+.btn-delete {
+  background: #f44336;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.6rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background: #d32f2f;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Modal Style */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s 0.3s linear;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 3rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 90%;
+  max-width: 40rem;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.show .modal-content {
+  transform: scale(1);
+}
+
+.modal-content h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.modal-content p {
+  font-size: 1.6rem;
+  color: #333;
+}
+
+.modal-actions {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.btn-modal {
+  padding: 1rem 2.5rem;
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  border: 0.2rem solid transparent;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background: #d3d3d3;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-confirm-delete {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.btn-confirm-delete:hover {
+  background: #d32f2f;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
 }

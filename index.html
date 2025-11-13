@@ -14,92 +14,101 @@
     <title>Expense Tracker App</title>
   </head>
   <body>
-    <div class="conatin">
-      <header class="header">
-        <h1 class="heading">Expense Tracker App</h1>
-      </header>
-      <main class="app">
-        <form action="" class="form">
-          <div class="form-feild" data-err="">
-            <label for="expense-name " class="form__label"
-              >Expense Name :</label
-            >
-            <input
-              type="text"
-              class="form__input"
-              id="expense-name"
-              placeholder="Expense Name"
-            />
+    <div class="container">
+      <div class="header">
+        <h1>Expense Tracker</h1>
+        <p>Manage your expenses efficiently</p>
+      </div>
+
+      <div class="content">
+        <div class="form-section">
+          <form id="expenseForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="expenseName">Expense Name</label>
+                <input
+                  type="text"
+                  id="expenseName"
+                  name="expenseName"
+                  placeholder="e.g., Grocery Shopping"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="expenseAmount">Amount (₹)</label>
+                <input
+                  type="number"
+                  id="expenseAmount"
+                  name="expenseAmount"
+                  placeholder="0.00"
+                  step="0.01"
+                  min="0"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="expenseDate">Date</label>
+                <input
+                  type="date"
+                  id="expenseDate"
+                  name="expenseDate"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="expenseCategory">Category</label>
+                <select id="expenseCategory" name="expenseCategory" required>
+                  <option value="">Select Category</option>
+                  <option value="food">Food & Dining</option>
+                  <option value="transport">Transport</option>
+                  <option value="entertainment">Entertainment</option>
+                  <option value="utilities">Utilities</option>
+                  <option value="healthcare">Healthcare</option>
+                  <option value="shopping">Shopping</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn-add">+ Add Expense</button>
+          </form>
+        </div>
+
+        <div class="summary">
+          <div class="summary-item">
+            <div class="summary-label">Total Expenses</div>
+            <div class="summary-value" id="totalExpenses">₹0.00</div>
           </div>
-
-          <div class="form-feild" data-err="">
-            <label for="expense-amount" class="form__label">
-              Expense Amount :
-            </label>
-            <input
-              type="number"
-              min="1"
-              step="1"
-              pattern="\d+"
-              class="form__input"
-              id="amount"
-              placeholder="Amount"
-            />
+          <div class="summary-item">
+            <div class="summary-label">Total Items</div>
+            <div class="summary-value" id="totalItems">0</div>
           </div>
+        </div>
 
-          <div class="form-feild" data-err="">
-            <label for="category" class="form__label"> Category : </label>
-            <select name="category" id="category" class="form__input">
-              <option value="" disabled selected>Select Category</option>
-              <option value="food">Food</option>
-              <option value="transportation">Transportation</option>
-              <option value="utilities">Utilities</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="health">Health</option>
-              <option value="other">Other</option>
-            </select>
+        <div class="expenses-container" id="expensesContainer">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+              />
+            </svg>
+            <h3>No expenses yet</h3>
+            <p>Start tracking by adding your first expense above</p>
           </div>
-          <button type="submit" class="btn">Add Expense</button>
-        </form>
+        </div>
+      </div>
+    </div>
 
-        <form action="" class="form">
-          <select
-            name="filter-category"
-            id="filter-category"
-            class="form__input"
-          >
-            <option value="" disabled selected>Filter by Category</option>
-            <option value="all">All</option>
-            <option value="food">Food</option>
-            <option value="transportation">Transportation</option>
-            <option value="utilities">Utilities</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="health">Health</option>
-            <option value="other">Other</option>
-          </select>
-        </form>
-
-        <table class="table">
-          <thead class="thead">
-            <tr class="tr">
-              <th>Name</th>
-              <th>Amount</th>
-              <th>Date</th>
-              <th>Category</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody class="tbody"></tbody>
-          <tfoot class="tfoot">
-            <tr class="tr">
-              <td colspan="5">
-                Total Expense Amount :
-                <span class="total-expense">00.00</span>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </main>
+    <div id="deleteModal" class="modal-overlay">
+      <div class="modal-content">
+        <h3>Confirm deletion</h3>
+        <p>Are you sure you want to delete this expense?</p>
+        <div class="modal-actions">
+          <button id="cancelDelete" class="btn-modal btn-cancel">Cancel</button>
+          <button id="confirmDelete" class="btn-modal btn-confirm-delete">
+            Delete
+          </button>
+        </div>
+      </div>
     </div>
   </body>
 </html>
