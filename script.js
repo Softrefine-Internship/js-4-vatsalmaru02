@@ -13,9 +13,11 @@ const resetModal = document.getElementById("resetModal");
 const resetExpensesBtn = document.getElementById("resetExpenses");
 const confirmResetBtn = document.getElementById("confirmReset");
 const cancelResetBtn = document.getElementById("cancelReset");
+const searchInput = document.getElementById("searchInput");
+const searchResults = document.getElementById("searchResults");
 let expenseToDeleteIndex = null;
 
-const CATEGORY_LABELS = {
+const categoryLabels = {
   food: "Food & Dining",
   transport: "Transport",
   entertainment: "Entertainment",
@@ -44,7 +46,7 @@ const formatCurrency = (amount) => {
   return "₹" + parseFloat(amount).toFixed(2);
 };
 
-const getCategoryLabel = (category) => CATEGORY_LABELS[category] || category;
+const getCategoryLabel = (category) => categoryLabels[category] || category;
 
 const renderExpenses = () => {
   if (expenses.length === 0) {
@@ -122,7 +124,60 @@ const openDeleteModal = (index) => {
   deleteModal.classList.add("show");
 };
 
-// This function needs to be globally accessible for the onclick attribute
+const searchExpenses = () => {
+  const searchTerm = searchInput.value.toLowerCase().trim();
+
+  if (searchTerm) {
+    const filteredExpenses = expenses.filter((expense) => {
+      const name = expense.name.toLowerCase();
+      const amount = expense.amount.toString();
+      return name.includes(searchTerm) || amount.includes(searchTerm);
+    });
+
+    expensesContainer.style.display = "none";
+    searchResults.style.display = "block";
+
+    if (filteredExpenses.length === 0) {
+      searchResults.innerHTML = `<div class="empty-state"><p>No matching expenses found.</p></div>`;
+    } else {
+      const expenseRows = filteredExpenses
+        .map(
+          (expense, index) => `
+          <tr>
+            <td>${expense.name}</td>
+            <td><strong>${formatCurrency(expense.amount)}</strong></td>
+            <td>${formatDate(expense.date)}</td>
+            <td><span class="category-badge category-${
+              expense.category
+            }">${getCategoryLabel(expense.category)}</span></td>
+            <td><button class="btn-delete" onclick="deleteExpense(${index})">Delete</button></td>
+          </tr>`
+        )
+        .join("");
+
+      searchResults.innerHTML = `
+        <div class="table-section">
+          <table>
+            <thead>
+              <tr>
+                <th>Expense Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>${expenseRows}</tbody>
+          </table>
+        </div>`;
+    }
+  } else {
+    searchResults.style.display = "none";
+    expensesContainer.style.display = "block";
+  }
+};
+
+//  This function needs to be globally accessible for the onclick attribute
 window.deleteExpense = openDeleteModal;
 
 const closeDeleteModal = () => {
@@ -167,5 +222,6 @@ cancelDeleteBtn.addEventListener("click", closeDeleteModal);
 resetExpensesBtn.addEventListener("click", openResetModal);
 confirmResetBtn.addEventListener("click", confirmReset);
 cancelResetBtn.addEventListener("click", closeResetModal);
+searchInput.addEventListener("input", searchExpenses);
 
 init();
