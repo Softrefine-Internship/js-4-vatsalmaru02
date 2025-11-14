@@ -19,6 +19,24 @@ body {
   color: #333;
 }
 
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a6dcf 0%, #613c85 100%);
+}
+
 .container {
   max-width: 120rem;
   width: 100%;
@@ -155,6 +173,15 @@ body {
   overflow-x: auto;
   border-radius: 1.5rem;
   box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.table-section::-webkit-scrollbar {
+  height: 0.5rem;
+}
+
+.table-section::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 1rem;
 }
 
 table {
@@ -357,4 +384,81 @@ tbody td {
   background: #d32f2f;
   transform: scale(1.05);
   transition: all 0.2s ease-in-out;
+}
+
+.btn-reset {
+  background: #fff;
+  color: #6e0fc8;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-reset:hover {
+  background: #f8f9fa;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Media Queries */
+
+@media (max-width: 48em) {
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .header p {
+    font-size: 1rem;
+  }
+
+  .content {
+    padding: 2rem;
+  }
+
+  .form-section {
+    padding: 2rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  thead th {
+    padding: 1rem;
+    font-size: 1.4rem;
+  }
+
+  .summary-value {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 30em) {
+  body {
+    padding: 1rem;
+  }
+
+  .header {
+    padding: 2rem;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .content {
+    font-size: 1.5rem;
+  }
+
+  .form-section {
+    padding: 1.5rem;
+  }
+
+  .summary-value {
+    font-size: 1.5rem;
+  }
 }

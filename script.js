@@ -9,6 +9,10 @@ const expensesContainer = document.getElementById("expensesContainer");
 const deleteModal = document.getElementById("deleteModal");
 const confirmDeleteBtn = document.getElementById("confirmDelete");
 const cancelDeleteBtn = document.getElementById("cancelDelete");
+const resetModal = document.getElementById("resetModal");
+const resetExpensesBtn = document.getElementById("resetExpenses");
+const confirmResetBtn = document.getElementById("confirmReset");
+const cancelResetBtn = document.getElementById("cancelReset");
 let expenseToDeleteIndex = null;
 
 const CATEGORY_LABELS = {
@@ -133,6 +137,21 @@ const confirmDelete = () => {
   closeDeleteModal();
 };
 
+const openResetModal = () => {
+  resetModal.classList.add("show");
+};
+
+const closeResetModal = () => {
+  resetModal.classList.remove("show");
+};
+
+const confirmReset = () => {
+  expenses = [];
+  saveExpenses();
+  renderExpenses();
+  closeResetModal();
+};
+
 const init = () => {
   const stored = localStorage.getItem("expenses");
   if (stored) {
@@ -145,4 +164,8 @@ const init = () => {
 expenseForm.addEventListener("submit", addExpense);
 confirmDeleteBtn.addEventListener("click", confirmDelete);
 cancelDeleteBtn.addEventListener("click", closeDeleteModal);
+resetExpensesBtn.addEventListener("click", openResetModal);
+confirmResetBtn.addEventListener("click", confirmReset);
+cancelResetBtn.addEventListener("click", closeResetModal);
+
 init();
