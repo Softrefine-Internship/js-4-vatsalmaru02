@@ -405,6 +405,11 @@ tbody td {
 }
 
 /* Media Queries */
+@media (max-width: 85.43em) {
+  html {
+    font-size: 60%;
+  }
+}
 
 @media (max-width: 48em) {
   .header h1 {
