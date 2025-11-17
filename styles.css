@@ -482,6 +482,16 @@ tbody td {
   color: #333;
 }
 
+.error-text {
+  font-size: 1.2rem;
+  color: #ff0000;
+  margin-top: 0.4rem;
+}
+
+.error {
+  border: 1px solid #ff0000 !important;
+}
+
 /* Media Queries */
 
 @media (max-width: 66.75em) {

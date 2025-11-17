@@ -104,25 +104,24 @@ const renderExpenses = () => {
 const addExpense = (e) => {
   e.preventDefault();
 
+  if (!validateForm()) {
+    return;
+  }
+
   const formData = new FormData(expenseForm);
   const name = formData.get("expenseName").trim();
   const amount = parseFloat(formData.get("expenseAmount"));
   const date = formData.get("expenseDate");
   const category = formData.get("expenseCategory");
 
-  if (!name || !amount || !date || !category) {
-    alert("Please fill in all fields");
-    return;
-  }
-
   expenses.unshift({ id: Date.now(), name, amount, date, category });
+
   saveExpenses();
   renderExpenses();
 
   expenseForm.reset();
   setTodayDate();
 };
-
 const openDeleteModal = (id) => {
   expenseToDeleteIndex = expenses.findIndex((exp) => exp.id === id);
   deleteModal.classList.add("show");
@@ -226,6 +225,36 @@ const confirmReset = () => {
   closeResetModal();
 };
 
+function validateForm() {
+  let isValid = true;
+
+  const nameInput = document.getElementById("expenseName");
+  const amountInput = document.getElementById("expenseAmount");
+  const dateInput = document.getElementById("expenseDate");
+  const categoryInput = document.getElementById("expenseCategory");
+
+  const fields = [
+    { input: nameInput, message: "Please enter expense name" },
+    { input: amountInput, message: "Please enter a valid amount" },
+    { input: dateInput, message: "Please select a date" },
+    { input: categoryInput, message: "Please select a category" },
+  ];
+
+  fields.forEach((field) => {
+    const errorMsg = field.input.parentElement.querySelector(".error-text");
+
+    if (!field.input.value || field.input.value.trim() === "") {
+      field.input.classList.add("error");
+      errorMsg.textContent = field.message;
+      isValid = false;
+    } else {
+      field.input.classList.remove("error");
+      errorMsg.textContent = "";
+    }
+  });
+
+  return isValid;
+}
 const init = () => {
   const stored = localStorage.getItem("expenses");
   if (stored) {
@@ -235,7 +264,6 @@ const init = () => {
   renderExpenses();
 };
 
-
 window.addEventListener("click", (e) => {
   if (e.target === deleteModal) {
     closeDeleteModal();
@@ -244,7 +272,6 @@ window.addEventListener("click", (e) => {
     closeResetModal();
   }
 });
-
 
 window.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {

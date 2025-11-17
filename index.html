@@ -31,8 +31,8 @@
                   id="expenseName"
                   name="expenseName"
                   placeholder="e.g., Grocery Shopping"
-                  required
                 />
+                <small class="error-text"></small>
               </div>
               <div class="form-group">
                 <label for="expenseAmount">Amount (₹)</label>
@@ -43,21 +43,17 @@
                   placeholder="0.00"
                   step="0.01"
                   min="0"
-                  required
                 />
+                <small class="error-text"></small>
               </div>
               <div class="form-group">
                 <label for="expenseDate">Date</label>
-                <input
-                  type="date"
-                  id="expenseDate"
-                  name="expenseDate"
-                  required
-                />
+                <input type="date" id="expenseDate" name="expenseDate" />
+                <small class="error-text"></small>
               </div>
               <div class="form-group">
                 <label for="expenseCategory">Category</label>
-                <select id="expenseCategory" name="expenseCategory" required>
+                <select id="expenseCategory" name="expenseCategory">
                   <option value="">Select Category</option>
                   <option value="food">Food & Dining</option>
                   <option value="transport">Transport</option>
@@ -67,10 +63,10 @@
                   <option value="shopping">Shopping</option>
                   <option value="other">Other</option>
                 </select>
+                <small class="error-text"></small>
               </div>
             </div>
             <div class="form-search-grid">
-              
               <input
                 type="text"
                 id="searchInput"
