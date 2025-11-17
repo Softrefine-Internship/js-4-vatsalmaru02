@@ -145,6 +145,18 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+/* .search-input {
+  display: flex;
+  align-items: center;
+} */
+
+/* .icon-search {
+  height: 4rem;
+  width: 4rem;
+  padding: 1rem;
+  background: #fff;
+} */
+
 .btn-add {
   /* width: 100%; */
   padding: 1.5rem;
@@ -232,8 +244,8 @@ table {
   width: 100%;
   border-collapse: collapse;
   min-width: 60rem;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  /* overflow-y: hidden;
+  overflow-x: hidden; */
 }
 
 thead {
@@ -326,6 +338,9 @@ tbody td {
 }
 
 .btn-delete {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
   background: #f44336;
   font-size: 1.4rem;
   font-weight: 600;
@@ -341,6 +356,11 @@ tbody td {
   background: #d32f2f;
   transform: scale(1.05);
   transition: all 0.2s ease-in-out;
+}
+
+.icon-delete {
+  height: 2rem;
+  width: 2rem;
 }
 
 /* Modal Style */
@@ -452,14 +472,35 @@ tbody td {
   transition: all 0.2s ease-in-out;
 }
 
-
-
 .copyright {
   text-align: center;
   padding: 1rem;
 }
 
+.copyright p {
+  font-size: 1.4rem;
+  color: #333;
+}
+
 /* Media Queries */
+
+@media (max-width: 66.75em) {
+  .form-search-grid {
+    gap: 13rem;
+  }
+}
+
+@media (max-width: 63.625em) {
+  .form-search-grid {
+    gap: 12rem;
+  }
+}
+
+@media (max-width: 62.375em) {
+  .form-search-grid {
+    gap: 1rem;
+  }
+}
 
 @media (max-width: 48em) {
   .header h1 {

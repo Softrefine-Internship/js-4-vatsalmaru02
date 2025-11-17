@@ -15,6 +15,7 @@ const confirmResetBtn = document.getElementById("confirmReset");
 const cancelResetBtn = document.getElementById("cancelReset");
 const searchInput = document.getElementById("searchInput");
 const searchResults = document.getElementById("searchResults");
+const selectByCategory = document.getElementById("selectByCategory");
 let expenseToDeleteIndex = null;
 
 const categoryLabels = {
@@ -69,7 +70,13 @@ const renderExpenses = () => {
           <td><span class="category-badge category-${
             expense.category
           }">${getCategoryLabel(expense.category)}</span></td>
-          <td><button class="btn-delete" onclick="deleteExpense(${index})">Delete</button></td>
+          <td><button class="btn-delete" onclick="deleteExpense(${
+            expense.id
+          })">Delete 
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon icon-delete">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+              </svg>
+            </button></td>
         </tr>`
       )
       .join("");
@@ -119,21 +126,32 @@ const addExpense = (e) => {
   setTodayDate();
 };
 
-const openDeleteModal = (index) => {
-  expenseToDeleteIndex = index;
+const openDeleteModal = (id) => {
+  expenseToDeleteIndex = expenses.findIndex((exp) => exp.id === id);
   deleteModal.classList.add("show");
 };
 
 const searchExpenses = () => {
   const searchTerm = searchInput.value.toLowerCase().trim();
+  const selectedCategory = selectByCategory.value;
+
+  let filteredExpenses = expenses;
 
   if (searchTerm) {
-    const filteredExpenses = expenses.filter((expense) => {
+    filteredExpenses = filteredExpenses.filter((expense) => {
       const name = expense.name.toLowerCase();
       const amount = expense.amount.toString();
       return name.includes(searchTerm) || amount.includes(searchTerm);
     });
+  }
 
+  if (selectedCategory) {
+    filteredExpenses = filteredExpenses.filter((expense) => {
+      return expense.category === selectedCategory;
+    });
+  }
+
+  if (searchTerm || selectedCategory) {
     expensesContainer.style.display = "none";
     searchResults.style.display = "block";
 
@@ -142,7 +160,7 @@ const searchExpenses = () => {
     } else {
       const expenseRows = filteredExpenses
         .map(
-          (expense, index) => `
+          (expense) => `
           <tr>
             <td>${expense.name}</td>
             <td><strong>${formatCurrency(expense.amount)}</strong></td>
@@ -150,7 +168,9 @@ const searchExpenses = () => {
             <td><span class="category-badge category-${
               expense.category
             }">${getCategoryLabel(expense.category)}</span></td>
-            <td><button class="btn-delete" onclick="deleteExpense(${index})">Delete</button></td>
+            <td><button class="btn-delete" onclick="deleteExpense(${
+              expense.id
+            })">Delete</button></td>
           </tr>`
         )
         .join("");
@@ -165,8 +185,8 @@ const searchExpenses = () => {
                 <th>Date</th>
                 <th>Category</th>
                 <th>Action</th>
-              </tr>
-            </thead>
+                </tr>
+              </thead>
             <tbody>${expenseRows}</tbody>
           </table>
         </div>`;
@@ -189,6 +209,7 @@ const confirmDelete = () => {
   expenses.splice(expenseToDeleteIndex, 1);
   saveExpenses();
   renderExpenses();
+  searchExpenses();
   closeDeleteModal();
 };
 
@@ -204,6 +225,7 @@ const confirmReset = () => {
   expenses = [];
   saveExpenses();
   renderExpenses();
+  searchExpenses();
   closeResetModal();
 };
 
@@ -223,5 +245,6 @@ resetExpensesBtn.addEventListener("click", openResetModal);
 confirmResetBtn.addEventListener("click", confirmReset);
 cancelResetBtn.addEventListener("click", closeResetModal);
 searchInput.addEventListener("input", searchExpenses);
+selectByCategory.addEventListener("change", searchExpenses);
 
 init();
